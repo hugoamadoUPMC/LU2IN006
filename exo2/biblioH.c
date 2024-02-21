@@ -166,7 +166,7 @@ void supprimer_livreH(BiblioH* b, int num, char* titre, char* auteur){
   }
 }
 
-BiblioH* fusion_biblio(BiblioH* b1, BiblioH* b2){
+BiblioH* fusion_biblioH(BiblioH* b1, BiblioH* b2){
   if(b1!=NULL || b2!=NULL){
     if(b1!=NULL){
       LivreH* tmp;
