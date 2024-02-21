@@ -1,5 +1,5 @@
-#ifndef _ENTREESORTIE_H_
-#define _ENTREESORTIE_H_
+#ifndef _ENTREESORTIELC_H_
+#define _ENTREESORTIELC_H_
 #include "biblioLC.h"
 
 Biblio* charger_n_entrees(char* nomfic, int n);
