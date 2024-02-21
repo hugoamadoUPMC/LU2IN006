@@ -17,5 +17,6 @@ void liberer_livre(Livre* l);
 Biblio* creer_biblio();
 void liberer_biblio(Biblio* b);
 void inserer_en_tete(Biblio* b, int num, char* titre, char* auteur);
+Livre* recherche_par_num(Biblio* b, int n);
 
 #endif

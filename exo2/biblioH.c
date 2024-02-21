@@ -14,7 +14,7 @@ int fonctionClef(char* auteur){
   return res;
   }
 
-LivreH* creer_livre(int num, char* titre, char* auteur){
+LivreH* creer_livreH(int num, char* titre, char* auteur){
   LivreH *l = (LivreH *)malloc(sizeof(LivreH));
   l->clef = fonctionClef(auteur);
   l->num = num;
@@ -23,24 +23,24 @@ LivreH* creer_livre(int num, char* titre, char* auteur){
   return l;
   }
 
-void liberer_livre(LivreH *l) {
+void liberer_livreH(LivreH *l) {
   free(l->titre);
   free(l->auteur);
   free(l);
   }
 
-BiblioH* creer_biblio(int m){
+BiblioH* creer_biblioH(int m){
   BiblioH* b = (BiblioH*) malloc(sizeof(BiblioH));
   b->m=m;
   b->T=(LivreH**) malloc(sizeof(LivreH*)*m);
   return b;
   }
 
-void liberer_biblio(BiblioH* b){
+void liberer_biblioH(BiblioH* b){
   LivreH *tmp = *b->T;
   while (tmp) {
     LivreH *suiv = tmp->suivant;
-    liberer_livre(tmp);
+    liberer_livreH(tmp);
     tmp = suiv;
     }
   free(b);
@@ -54,7 +54,7 @@ int fonctionHachage(int clef, int m){
     }
 
 void inserer(BiblioH* b,int num,char* titre,char* auteur){
-    LivreH* l=creer_livre(num,titre,auteur);
+    LivreH* l=creer_livreH(num,titre,auteur);
     int h=fonctionHachage(fonctionClef(auteur),b->m);
     b->nE++;
     LivreH** tmp=b->T;
