@@ -7,7 +7,7 @@ PROGRAMS = main
 all: $(PROGRAMS)
 
 main: main.o biblioH.o
-	$(CC) -o $@ $(CFLAGS) $^
+	$(CC) -o $@ $(CFLAGS) $^ -lm
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
