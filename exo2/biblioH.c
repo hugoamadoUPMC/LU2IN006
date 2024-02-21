@@ -66,3 +66,62 @@ void inserer(BiblioH* b,int num,char* titre,char* auteur){
         tmp[h]=l;
         }
     }
+
+void afficher_livre(LivreH *l) {
+  if (l != NULL){
+    printf("%d %s %s \n", l->num, l->titre, l->auteur);
+  }
+  else{
+    printf("Livre non trouvé ou invalide\n");
+  }
+}
+
+void afficher_biblio(BiblioH* b){
+  if (b != NULL) {
+    LivreH* tmp;
+    for(int i=0;i<b->m;i++){
+      tmp=b->T[i];
+      while(tmp){
+        afficher_livre(tmp);
+        tmp=tmp->suivant;
+      }
+    }
+  }
+  else{
+    printf("Bibliothèque non trouvée ou invalide\n");
+  }
+}
+
+LivreH* recherche_par_num(BiblioH* b, int n){
+  if (b != NULL) {
+    LivreH* tmp;
+    for(int i=0;i<b->m;i++){
+      tmp=b->T[i];
+      while(tmp && tmp->num != n){
+        tmp=tmp->suivant;
+      }
+    }
+    return tmp;
+  }
+  else{
+    printf("Bibliothèque non trouvée ou invalide\n");
+    return NULL;
+  }
+}
+
+LivreH* recherche_par_titre(BiblioH* b, char* titre){
+  if (b != NULL) {
+    LivreH* tmp;
+    for(int i=0;i<b->m;i++){
+      tmp=b->T[i];
+      while(tmp && strcmp(tmp->titre,titre)){
+        tmp=tmp->suivant;
+      }
+    }
+    return tmp;
+  }
+  else{
+    printf("Bibliothèque non trouvée ou invalide\n");
+    return NULL;
+  }
+}
