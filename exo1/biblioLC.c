@@ -142,7 +142,7 @@ void supprimer_livre(Biblio* b, int num, char* titre, char* auteur){
   }
   else{
     printf("Bibliothèque non trouvée ou invalide\n");
-    return NULL;
+    return;
   }
 }
 
