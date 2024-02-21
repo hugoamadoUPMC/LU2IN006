@@ -164,3 +164,23 @@ Biblio* fusion_biblio(Biblio* b1, Biblio* b2){
     return NULL;
   }
 }
+
+Biblio* livres_exemplaires(Biblio* b){
+    Biblio* t = creer_biblio();
+    Livre* cour = b->L;
+    
+    while (cour != NULL) {
+        Livre* liv = cour->suiv;
+        while (liv != NULL) {
+            if (strcmp(cour->titre, liv->titre) == 0 && strcmp(cour->auteur, liv->auteur) == 0) {
+                // Les ouvrages sont identiques
+                // On insère l'exemplaire dans la bibliothèque de résultats
+                inserer_en_tete(t, liv->num, liv->titre, liv->auteur); 
+            }
+            liv = liv->suiv;
+        }
+        cour = cour->suiv;
+    }
+    return t;
+}
+

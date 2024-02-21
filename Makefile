@@ -6,7 +6,7 @@ PROGRAMS = main
 
 all: $(PROGRAMS)
 
-main: main.o biblioH.o
+main: main.o exo2/biblioH.o exo1/biblioLC.o
 	$(CC) -o $@ $(CFLAGS) $^ -lm
 
 %.o: %.c

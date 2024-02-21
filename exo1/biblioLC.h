@@ -24,5 +24,5 @@ Livre* recherche_par_titre(Biblio* b, char* titre);
 Biblio* recherche_livres_auteur(Biblio* b, char* auteur);
 void supprimer_livre(Biblio* b, int num, char* titre, char* auteur);
 Biblio* fusion_biblio(Biblio* b1, Biblio* b2);
-
+Biblio* livres_exemplaires(Biblio* b);
 #endif
