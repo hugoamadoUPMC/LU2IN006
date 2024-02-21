@@ -1,5 +1,6 @@
-#ifndef _BIBLIO_H_
-#define _BIBLIO_H_
+#ifndef BIBLIOLC_H
+#define BIBLIOLC_H
+
 typedef struct livre{
         int num;
         char* titre;
