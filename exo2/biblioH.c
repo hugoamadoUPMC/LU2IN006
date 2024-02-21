@@ -135,11 +135,11 @@ BiblioH* recherche_livres_auteurH(BiblioH* b, char* auteur){
     BiblioH* res=creer_biblioH(b->m);
     LivreH* tmp;
     int h= fonctionHachage(fonctionClef(auteur),b->m);
-      tmp=b->T[h];
-      while(tmp){
-        if(strcmp(tmp->auteur,auteur)){
-          inserer(res,tmp->num,tmp->titre,tmp->auteur);
-        }
+    tmp=b->T[h];
+    while(tmp){
+      if(strcmp(tmp->auteur,auteur)){
+        inserer(res,tmp->num,tmp->titre,tmp->auteur);
+      }
       tmp=tmp->suivant;
     }
     return res;
@@ -153,11 +153,10 @@ BiblioH* recherche_livres_auteurH(BiblioH* b, char* auteur){
 void supprimer_livreH(BiblioH* b, int num, char* titre, char* auteur){
   if (b != NULL) {
     LivreH* tmp;
-    for(int i=0;i<b->m;i++){
-      tmp=b->T[i];
-      while(tmp && num!=tmp->num && !strcmp(tmp->auteur,auteur) && !strcmp(tmp->titre,titre)){
-        tmp=tmp->suivant;
-        }
+    int h= fonctionHachage(fonctionClef(auteur),b->m);
+    tmp=b->T[h];
+    while(tmp && num!=tmp->num && !strcmp(tmp->auteur,auteur) && !strcmp(tmp->titre,titre)){
+      tmp=tmp->suivant;
       }
     if(tmp!=NULL){
       liberer_livreH(tmp);
