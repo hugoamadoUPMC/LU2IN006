@@ -97,3 +97,17 @@ Livre* recherche_par_num(Biblio* b, int n){
     return NULL;
   }
 }
+
+Livre* recherche_par_titre(Biblio* b, char* titre){
+  if (b != NULL) {
+    Livre* tmp = b->L;
+    while(tmp && strcmp(tmp->titre,titre)){
+      tmp=tmp->suiv;
+    }
+    return tmp;
+  }
+  else{
+    printf("Bibliothèque non trouvée ou invalide\n");
+    return NULL;
+  }
+}
