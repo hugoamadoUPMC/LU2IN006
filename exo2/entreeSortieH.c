@@ -9,7 +9,7 @@ BiblioH* charger_n_entreesH(char* nomfic, int n){
         printf("Erreur lors de l'ouverture du fichier %s\n", nomfic);
         return NULL;
     }
-    BiblioH *bi = creer_biblio();
+    BiblioH *bi = creer_biblio(n);
     char buffer[256];
     int num;
     char maj[256];
