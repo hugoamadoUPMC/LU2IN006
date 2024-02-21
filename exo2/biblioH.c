@@ -67,7 +67,7 @@ void inserer(BiblioH* b,int num,char* titre,char* auteur){
         }
     }
 
-void afficher_livre(LivreH *l) {
+void afficher_livreH(LivreH *l) {
   if (l != NULL){
     printf("%d %s %s \n", l->num, l->titre, l->auteur);
   }
@@ -76,7 +76,7 @@ void afficher_livre(LivreH *l) {
   }
 }
 
-void afficher_biblio(BiblioH* b){
+void afficher_biblioH(BiblioH* b){
   if (b != NULL) {
     LivreH* tmp;
     for(int i=0;i<b->m;i++){
@@ -92,7 +92,7 @@ void afficher_biblio(BiblioH* b){
   }
 }
 
-LivreH* recherche_par_num(BiblioH* b, int n){
+LivreH* recherche_par_numH(BiblioH* b, int n){
   if (b != NULL) {
     LivreH* tmp;
     for(int i=0;i<b->m;i++){
@@ -109,7 +109,7 @@ LivreH* recherche_par_num(BiblioH* b, int n){
   }
 }
 
-LivreH* recherche_par_titre(BiblioH* b, char* titre){
+LivreH* recherche_par_titreH(BiblioH* b, char* titre){
   if (b != NULL) {
     LivreH* tmp;
     for(int i=0;i<b->m;i++){
@@ -126,7 +126,7 @@ LivreH* recherche_par_titre(BiblioH* b, char* titre){
   }
 }
 
-BiblioH* recherche_livres_auteur(BiblioH* b, char* auteur){
+BiblioH* recherche_livres_auteurH(BiblioH* b, char* auteur){
   if (b != NULL) {
     BiblioH* res=creer_biblio();
     LivreH* tmp;
@@ -147,7 +147,7 @@ BiblioH* recherche_livres_auteur(BiblioH* b, char* auteur){
   }
 }
 
-void supprimer_livre(BiblioH* b, int num, char* titre, char* auteur){
+void supprimer_livreH(BiblioH* b, int num, char* titre, char* auteur){
   if (b != NULL) {
     LivreH* tmp;
     for(int i=0;i<b->m;i++){
