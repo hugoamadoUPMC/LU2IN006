@@ -97,7 +97,7 @@ void inserer(BiblioH* b,int num,char* titre,char* auteur){
 }
 
 void afficher_livreH(LivreH *l) {
-  //
+  //affiche le livre si il n'est pas null
   if (l != NULL){
     printf("%d %s %s \n", l->num, l->titre, l->auteur);
   }
@@ -160,6 +160,7 @@ BiblioH* recherche_livres_auteurH(BiblioH* b, char* auteur){
   if (b != NULL) {
     BiblioH* res=creer_biblioH(b->m);
     LivreH* tmp;
+    //positionnement au début de la liste chaîné en fonction du nom de l'auteur
     int h= fonctionHachage(fonctionClef(auteur),b->m);
     tmp=b->T[h];
     while(tmp){
