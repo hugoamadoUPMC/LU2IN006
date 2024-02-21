@@ -20,19 +20,23 @@ LivreH* creer_livreH(int num, char* titre, char* auteur){
   l->num = num;
   l->titre = strdup(titre);
   l->auteur = strdup(auteur);
+  l->suivant = NULL;
   return l;
   }
 
 void liberer_livreH(LivreH *l) {
-  free(l->titre);
-  free(l->auteur);
-  free(l);
+  if (l != NULL) {
+    free(l->titre);
+    free(l->auteur);
+    free(l);
   }
+}
 
 BiblioH* creer_biblioH(int m){
   BiblioH* b = (BiblioH*) malloc(sizeof(BiblioH));
   b->m=m;
-  b->T=(LivreH**) malloc(sizeof(LivreH*)*m);
+  b->nE = 0;
+  b->T = (LivreH**) calloc(m, sizeof(LivreH*));
   return b;
   }
 
@@ -172,7 +176,7 @@ BiblioH* fusion_biblioH(BiblioH* b1, BiblioH* b2){
       for(int i=0;i<b2->m;i++){
         tmp=b2->T[i];
         while(tmp){
-          inserer_en_tete(b1,tmp->num,tmp->titre,tmp->auteur);
+          inserer(b1,tmp->num,tmp->titre,tmp->auteur);
         }
       }
       return b1;
