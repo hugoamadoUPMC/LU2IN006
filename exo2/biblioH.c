@@ -5,73 +5,99 @@
 #include <math.h>
 
 int fonctionClef(char* auteur){
+  //Initialisation de la valeur ASCII
   int res=0;
   int i=0;
+
   while(strcmp(&auteur[i],"\0")){
+    //ajout de la valeur ASCII de chaque caractère jusque la fin du nom de l'auteur
     res+=auteur[i];
     i++;
     }
+
   return res;
   }
 
 LivreH* creer_livreH(int num, char* titre, char* auteur){
+  //allocation mémoire
   LivreH *l = (LivreH *)malloc(sizeof(LivreH));
+
+  //ajout des attribus de livres
   l->clef = fonctionClef(auteur);
   l->num = num;
   l->titre = strdup(titre);
   l->auteur = strdup(auteur);
   l->suivant = NULL;
+
   return l;
   }
 
 void liberer_livreH(LivreH *l) {
   if (l != NULL) {
+    //libération des attribus dynamique
     free(l->titre);
     free(l->auteur);
+    //libération du pointeur sur livre.
     free(l);
   }
 }
 
 BiblioH* creer_biblioH(int m){
+  //allocation de biblio
   BiblioH* b = (BiblioH*) malloc(sizeof(BiblioH));
+
+  //ajout des attribut de biblio
   b->m=m;
   b->nE = 0;
+  //allocation de toutes les listes chainé de la table de hashage de taille m
   b->T = (LivreH**) calloc(m, sizeof(LivreH*));
   return b;
   }
 
 void liberer_biblioH(BiblioH* b){
-  LivreH *tmp = *b->T;
-  while (tmp) {
-    LivreH *suiv = tmp->suivant;
-    liberer_livreH(tmp);
-    tmp = suiv;
+  LivreH *tmp;
+  for(int i=0;i<b->m;i++){
+    //On parcour tous les têtes de liste chaîné de la table de hashage
+    tmp=b->T[i];
+    while (tmp) {
+      //On parcours tous les élément de chaque liste chaîné et on libère élément par élément
+      LivreH *suiv = tmp->suivant;
+      liberer_livreH(tmp);
+      tmp = suiv;
     }
+  }
   free(b);
   }
 
 int fonctionHachage(int clef, int m){
-    int res=0;
-    double a = (sqrt(5)-1)/2;
-    res=floor(m*(clef*a-floor(clef*a)));
-    return res;
-    }
+  //Nombre d'or moins 1
+  double a = (sqrt(5)-1)/2;
+  //fonction de la table de Hashage
+  return (int)(floor(m*(clef*a-floor(clef*a))));
+  }
 
 void inserer(BiblioH* b,int num,char* titre,char* auteur){
-    LivreH* l=creer_livreH(num,titre,auteur);
-    int h=fonctionHachage(fonctionClef(auteur),b->m);
-    b->nE++;
-    LivreH** tmp=b->T;
-    if(tmp[h]==NULL){
-        tmp[h]=l;
-        }
-    else{
-        l->suivant=tmp[h];
-        tmp[h]=l;
-        }
-    }
+  //Création du livre
+  LivreH* l=creer_livreH(num,titre,auteur);
+  //Calcule de la futur position du livre dans la table
+  int h=fonctionHachage(fonctionClef(auteur),b->m);
+  //augmentation du nombre de livre
+  b->nE++;
+  //positionnement en tête
+  LivreH** tmp=b->T;
+  //Condition si la liste chaîné est vide
+  if(tmp[h]==NULL){
+    tmp[h]=l;
+  }
+  //Si elle contient au moins un élément
+  else{
+    l->suivant=tmp[h];
+    tmp[h]=l;
+  }
+}
 
 void afficher_livreH(LivreH *l) {
+  //
   if (l != NULL){
     printf("%d %s %s \n", l->num, l->titre, l->auteur);
   }
