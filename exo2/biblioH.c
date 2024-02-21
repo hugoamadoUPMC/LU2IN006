@@ -165,3 +165,25 @@ void supprimer_livre(BiblioH* b, int num, char* titre, char* auteur){
     return NULL;
   }
 }
+
+BiblioH* fusion_biblio(BiblioH* b1, BiblioH* b2){
+  if(b1!=NULL || b2!=NULL){
+    if(b1!=NULL){
+      LivreH* tmp;
+      for(int i=0;i<b2->m;i++){
+        tmp=b2->T[i];
+        while(tmp){
+          inserer_en_tete(b1,tmp->num,tmp->titre,tmp->auteur);
+        }
+      }
+      return b1;
+    }
+    else{
+      return b2;
+    }
+  }
+  else{
+    printf("Bibliothèques non trouvées ou invalides\n");
+    return NULL;
+  }
+}
