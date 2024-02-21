@@ -110,8 +110,10 @@ void afficher_biblioH(BiblioH* b){
   if (b != NULL) {
     LivreH* tmp;
     for(int i=0;i<b->m;i++){
+      //On parcour tous les têtes de liste chaîné de la table de hashage
       tmp=b->T[i];
       while(tmp){
+        //On parcours tous les élément de chaque liste chaîné et on affiche élément par élément
         afficher_livreH(tmp);
         tmp=tmp->suivant;
       }
@@ -126,8 +128,10 @@ LivreH* recherche_par_numH(BiblioH* b, int n){
   if (b != NULL) {
     LivreH* tmp;
     for(int i=0;i<b->m;i++){
+      //On parcour tous les têtes de liste chaîné de la table de hashage
       tmp=b->T[i];
       while(tmp && tmp->num != n){
+        //On parcours tous les élément de chaque liste chaîné et on compare élément par élément
         tmp=tmp->suivant;
       }
     }
@@ -143,8 +147,10 @@ LivreH* recherche_par_titreH(BiblioH* b, char* titre){
   if (b != NULL) {
     LivreH* tmp;
     for(int i=0;i<b->m;i++){
+      //On parcour tous les têtes de liste chaîné de la table de hashage
       tmp=b->T[i];
       while(tmp && strcmp(tmp->titre,titre)){
+        //On parcours tous les élément de chaque liste chaîné et on compare élément par élément
         tmp=tmp->suivant;
       }
     }
@@ -158,13 +164,16 @@ LivreH* recherche_par_titreH(BiblioH* b, char* titre){
 
 BiblioH* recherche_livres_auteurH(BiblioH* b, char* auteur){
   if (b != NULL) {
+    //creation d'une biblio
     BiblioH* res=creer_biblioH(b->m);
     LivreH* tmp;
     //positionnement au début de la liste chaîné en fonction du nom de l'auteur
     int h= fonctionHachage(fonctionClef(auteur),b->m);
     tmp=b->T[h];
     while(tmp){
+      //On parcours tous les élément de chaque liste chaîné et on compare élément par élément
       if(strcmp(tmp->auteur,auteur)){
+        //Si le livre a le meme auteur recherche on l'ajoute a la biblio res
         inserer(res,tmp->num,tmp->titre,tmp->auteur);
       }
       tmp=tmp->suivant;
