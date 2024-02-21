@@ -82,7 +82,7 @@ void afficher_biblioH(BiblioH* b){
     for(int i=0;i<b->m;i++){
       tmp=b->T[i];
       while(tmp){
-        afficher_livre(tmp);
+        afficher_livreH(tmp);
         tmp=tmp->suivant;
       }
     }
@@ -128,7 +128,7 @@ LivreH* recherche_par_titreH(BiblioH* b, char* titre){
 
 BiblioH* recherche_livres_auteurH(BiblioH* b, char* auteur){
   if (b != NULL) {
-    BiblioH* res=creer_biblio();
+    BiblioH* res=creer_biblioH(b->m);
     LivreH* tmp;
     for(int i=0;i<b->m;i++){
       tmp=b->T[i];
@@ -157,11 +157,11 @@ void supprimer_livreH(BiblioH* b, int num, char* titre, char* auteur){
         }
       }
     if(tmp!=NULL){
-      liberer_livre(tmp);
+      liberer_livreH(tmp);
     }
   }
   else{
     printf("Bibliothèque non trouvée ou invalide\n");
-    return NULL;
+    return;
   }
 }
