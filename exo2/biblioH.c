@@ -125,3 +125,43 @@ LivreH* recherche_par_titre(BiblioH* b, char* titre){
     return NULL;
   }
 }
+
+BiblioH* recherche_livres_auteur(BiblioH* b, char* auteur){
+  if (b != NULL) {
+    BiblioH* res=creer_biblio();
+    LivreH* tmp;
+    for(int i=0;i<b->m;i++){
+      tmp=b->T[i];
+      while(tmp){
+        if(strcmp(tmp->auteur,auteur)){
+          inserer(b,tmp->num,tmp->titre,tmp->auteur);
+        }
+      tmp=tmp->suivant;
+      }
+    }
+    return b;
+  }
+  else{
+    printf("Bibliothèque non trouvée ou invalide\n");
+    return NULL;
+  }
+}
+
+void supprimer_livre(BiblioH* b, int num, char* titre, char* auteur){
+  if (b != NULL) {
+    LivreH* tmp;
+    for(int i=0;i<b->m;i++){
+      tmp=b->T[i];
+      while(tmp && num!=tmp->num && !strcmp(tmp->auteur,auteur) && !strcmp(tmp->titre,titre)){
+        tmp=tmp->suivant;
+        }
+      }
+    if(tmp!=NULL){
+      liberer_livre(tmp);
+    }
+  }
+  else{
+    printf("Bibliothèque non trouvée ou invalide\n");
+    return NULL;
+  }
+}

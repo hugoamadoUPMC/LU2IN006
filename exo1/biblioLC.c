@@ -101,10 +101,44 @@ Livre* recherche_par_num(Biblio* b, int n){
 Livre* recherche_par_titre(Biblio* b, char* titre){
   if (b != NULL) {
     Livre* tmp = b->L;
-    while(tmp && strcmp(tmp->titre,titre)){
+    while(tmp && !strcmp(tmp->titre,titre)){
       tmp=tmp->suiv;
     }
     return tmp;
+  }
+  else{
+    printf("Bibliothèque non trouvée ou invalide\n");
+    return NULL;
+  }
+}
+
+Biblio* recherche_livres_auteur(Biblio* b, char* auteur){
+  if (b != NULL) {
+    Biblio* res=creer_biblio();
+    Livre* tmp = b->L;
+    while(tmp){
+      if(strcmp(tmp->auteur,auteur)){
+        inserer_en_tete(b,tmp->num,tmp->titre,tmp->auteur);
+      }
+      tmp=tmp->suiv;
+    }
+    return b;
+  }
+  else{
+    printf("Bibliothèque non trouvée ou invalide\n");
+    return NULL;
+  }
+}
+
+void supprimer_livre(Biblio* b, int num, char* titre, char* auteur){
+  if (b != NULL) {
+    Livre* tmp = b->L;
+    while(tmp && num!=tmp->num && !strcmp(tmp->auteur,auteur) && !strcmp(tmp->titre,titre)){
+      tmp=tmp->suiv;
+      }
+    if(tmp!=NULL){
+      liberer_livre(tmp);
+    }
   }
   else{
     printf("Bibliothèque non trouvée ou invalide\n");
