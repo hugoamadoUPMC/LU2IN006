@@ -21,4 +21,7 @@ Livre* recherche_par_num(Biblio* b, int n);
 Livre* recherche_par_titre(Biblio* b, char* titre);
 Biblio* recherche_livres_auteur(Biblio* b, char* auteur);
 void supprimer_livre(Biblio* b, int num, char* titre, char* auteur);
+
+
+
 #endif
