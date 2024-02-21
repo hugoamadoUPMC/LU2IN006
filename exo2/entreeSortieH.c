@@ -3,7 +3,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-BiblioH* charger_n_entrees(char* nomfic, int n){
+BiblioH* charger_n_entreesH(char* nomfic, int n){
     FILE *f = fopen(nomfic,"r");
     if (f==NULL) {
         printf("Erreur lors de l'ouverture du fichier %s\n", nomfic);
@@ -24,7 +24,7 @@ BiblioH* charger_n_entrees(char* nomfic, int n){
     
 }
 
-void enregistrer_biblio(BiblioH *b, char* nomfic){
+void enregistrer_biblioH(BiblioH *b, char* nomfic){
     FILE *f = fopen(nomfic, "w"); // ouvrir un fichier en mode ecriture
     if (f == NULL) {
         printf("Erreur d'ouverture : %s\n", nomfic);

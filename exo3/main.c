@@ -40,7 +40,7 @@ int main() {
     // Recherche par numéro dans la table de hachage
     clock_t startH_num = clock();
     for (int i = 0; i < NUM_OUVRAGES; i++) {
-        LivreH *resultat = recherche_par_num(biblioH, i);
+        //LivreH *resultat = recherche_par_numH(biblioH, i);
     }
     clock_t endH_num = clock();
     double tempsH_num = ((double) (endH_num - startH_num)) / CLOCKS_PER_SEC;
