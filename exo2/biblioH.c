@@ -130,16 +130,15 @@ BiblioH* recherche_livres_auteurH(BiblioH* b, char* auteur){
   if (b != NULL) {
     BiblioH* res=creer_biblio();
     LivreH* tmp;
-    for(int i=0;i<b->m;i++){
-      tmp=b->T[i];
+    int h= fonctionHachage(fonctionClef(auteur),b->m);
+      tmp=b->T[h];
       while(tmp){
         if(strcmp(tmp->auteur,auteur)){
-          inserer(b,tmp->num,tmp->titre,tmp->auteur);
+          inserer(res,tmp->num,tmp->titre,tmp->auteur);
         }
       tmp=tmp->suivant;
-      }
     }
-    return b;
+    return res;
   }
   else{
     printf("Bibliothèque non trouvée ou invalide\n");
