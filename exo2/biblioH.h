@@ -1,5 +1,5 @@
-#ifndef _BIBLIOH_H_
-#define _BIBLIOH_H_
+#ifndef BIBLIOH_H
+#define BIBLIOH_H
 
 typedef struct livreh {
   int clef ;
@@ -29,5 +29,5 @@ LivreH* recherche_par_numH(BiblioH* b, int n);
 void afficher_biblioH(BiblioH* b);
 void afficher_livreH(LivreH *l);
 BiblioH* fusion_biblioH(BiblioH* b1, BiblioH* b2);
-BiblioH* livres_exemplaires(BiblioH* b) 
+BiblioH* livres_exemplairesH(BiblioH* b);
 #endif

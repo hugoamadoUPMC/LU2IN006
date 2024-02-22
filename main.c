@@ -8,6 +8,7 @@
 #include "exo2/biblioH.h"
 #include "exo2/entreeSortieH.h"
 
+// Fonction pour afficher le menu
 void menu() {
     printf("\n");
     printf("0-sortie du programme\n");
@@ -27,13 +28,15 @@ int main(int argc, char** argv) {
         return 1;
     }
     
-    Biblio* bC = charger_n_entrees(argv[1], atoi(argv[2])); // Charger les atoi(argv[2]) lignes dans la bibliothèque
-    BiblioH* bH = charger_n_entreesH(argv[1], atoi(argv[2])); // Charger les atoi(argv[2]) lignes dans la bibliothèque
+    // Charger les lignes dans la bibliothèque avec liste chaînée et table de hachage
+    Biblio* bC = charger_n_entrees(argv[1], atoi(argv[2]));
+    BiblioH* bH = charger_n_entreesH(argv[1], atoi(argv[2]));
 
     int rep;
     int cas;
     char buffer[256];
     
+    // Boucle principale pour le menu
     do {
         printf("Veuillez ecrire le numero du gestion d'une bibliothèque:\n 1.Gestion d’une bibliothèque avec une liste chaı̂née de struct \n 2.Gestion d’une bibliothèque avec une table de hachage.\n");
         fgets(buffer, 256, stdin);
@@ -43,16 +46,16 @@ int main(int argc, char** argv) {
             case 1:
                 do {
                     printf("\nGestion de la bibliothèque avec la liste chainée\n");		    
-                    menu();
+                    menu(); // Afficher le menu
                     fgets(buffer, 256, stdin);
                     cas = atoi(buffer);
                     
                     switch (cas) {
-                        case 1: 
+                        case 1: // Affichage
                             printf("Affichage: \n");
                             afficher_biblio(bC);
                             break;
-                        case 2:
+                        case 2: // Insertion d'un ouvrage
                             int num;
                             char titre[256];
                             char auteur[256];
@@ -63,32 +66,32 @@ int main(int argc, char** argv) {
                             afficher_biblio(bC);
                             printf("Ajout fait.\n");
                             break;
-                        case 3:
+                        case 3: // Recherche par numéro
                             printf("Veuillez ecrire le numero de l'ouvrage recherchée\n");
                             fgets(buffer, 256, stdin);
                             sscanf(buffer, "%d", &num);
                             afficher_livre(recherche_par_num(bC, num));
                             break;
-                        case 4:
+                        case 4: // Recherche par titre
                             printf("Veuillez ecrire le titre de l'ouvrage recherchée\n");
                             fgets(buffer, 256, stdin);
                             sscanf(buffer, "%s", titre);
                             afficher_livre(recherche_par_titre(bC, titre));
                             break;
-                        case 5:
+                        case 5: // Recherche par auteur
                             printf("Veuillez ecrire le nom de l'auteur\n");
                             fgets(buffer, 256, stdin);
                             sscanf(buffer, "%s", auteur);
                             afficher_biblio(recherche_livres_auteur(bC, auteur));
                             break;
-                        case 6:
+                        case 6: // Suppression d'un ouvrage
                             printf("Veuillez ecrire le numero, le titre, et l'auteur de l'ouvrage que vous voulez supprimer.\n");
                             fgets(buffer, 256, stdin);
                             sscanf(buffer, "%d %s %s", &num, titre, auteur);
                             supprimer_livre(bC, num, titre, auteur);
                             printf("suppresion terminée.\n");
                             break;
-                        case 7:
+                        case 7: // Fusion de deux bibliothèques
                             printf("Veuillez ecrire le nombre de lignes que vous vouliez charger dans votre deuxieme bibliothèque.\n");
                             int nblignes;
                             fgets(buffer, 256, stdin);
@@ -97,8 +100,8 @@ int main(int argc, char** argv) {
                             afficher_biblio(fusion_biblio(bC, b1));
                             printf("fusion terminée.\n");
                             break;
-                        case 8:
-                            afficher_biblio(livres_exemplaires(bC));
+                        case 8: // Recherche des ouvrages avec plusieurs exemplaires
+                            livres_exemplaires(bC);
                             printf("Recherche des doublons d'ouvrages d'emplaires terminée.\n");
                             break;
                     }
@@ -120,6 +123,7 @@ int main(int argc, char** argv) {
         }
     } while (rep != 0);
     
+    // Libération de la mémoire des bibliothèques
     liberer_biblio(bC);
     liberer_biblioH(bH);
     return 0;

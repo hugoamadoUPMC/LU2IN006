@@ -12,7 +12,7 @@ main: main.o exo2/biblioH.o exo1/biblioLC.o exo1/entreeSortieLC.o exo2/entreeSor
 main_comparaison : main_comparaison.o exo2/biblioH.o exo1/biblioLC.o exo1/entreeSortieLC.o exo2/entreeSortieH.o
 	$(CC) -o $@ $(CFLAGS) $^ -lm
 
-main_graph : main_graph.o exo1/biblioLC.o  exo1/entreeSortieLC.o exo2/entreeSortieH.o
+main_graph : main_graph.o exo2/biblioH.o exo1/biblioLC.o  exo1/entreeSortieLC.o exo2/entreeSortieH.o
 	$(CC) -o $@ $(CFLAGS) $^ -lm
 
 %.o: %.c
