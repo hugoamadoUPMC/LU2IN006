@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include <math.h>
 
 BiblioH* charger_n_entreesH(char* nomfic, int n){
     FILE *f = fopen(nomfic,"r");

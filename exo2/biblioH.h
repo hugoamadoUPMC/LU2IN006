@@ -29,4 +29,5 @@ LivreH* recherche_par_numH(BiblioH* b, int n);
 void afficher_biblioH(BiblioH* b);
 void afficher_livreH(LivreH *l);
 BiblioH* fusion_biblioH(BiblioH* b1, BiblioH* b2);
+BiblioH* livres_exemplaires(BiblioH* b) 
 #endif

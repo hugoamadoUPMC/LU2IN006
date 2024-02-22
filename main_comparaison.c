@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <math.h>
 
 #include "exo1/biblioLC.h"
 #include "exo1/entreeSortieLC.h"
@@ -40,11 +41,11 @@ int main(int argc, char* argv[]){
     printf("Calcul du temps d'exécution de la fonction recherche d'un ouvrage par son numéro (cas existant) :\n");
 
     tps_DebutLC = clock();
-    rechercher_par_num(biblioLC, 5);
+    recherche_par_num(biblioLC, 5);
     tps_FinLC = clock();
 
     tps_DebutH = clock();
-    rechercher_par_numH(biblioH, 5);
+    recherche_par_numH(biblioH, 5);
     tps_FinH = clock();
 
     double tps_TotalLC_N = ((double)(tps_FinLC - tps_DebutLC)) / CLOCKS_PER_SEC;
@@ -57,11 +58,11 @@ int main(int argc, char* argv[]){
     printf("Calcul du temps d'exécution de la fonction recherche d'un ouvrage par son numéro (cas absent) :\n");
 
     tps_DebutLC = clock();
-    rechercher_par_num(biblioLC, 4555666);
+    recherche_par_num(biblioLC, 4555666);
     tps_FinLC = clock();
 
     tps_DebutH = clock();
-    rechercher_par_numH(biblioH, 4555666);
+    recherche_par_numH(biblioH, 4555666);
     tps_FinH = clock();
 
     double tps_TotalLC_N1 = ((double)(tps_FinLC - tps_DebutLC)) / CLOCKS_PER_SEC;
@@ -75,11 +76,11 @@ int main(int argc, char* argv[]){
     printf("Calcul du temps d'exécution de la fonction recherche d'un ouvrage par son titre (cas existant) :\n");
 
     tps_DebutLC = clock();
-    rechercher_par_titre(biblioLC, "DJEQV");
+    recherche_par_titre(biblioLC, "DJEQV");
     tps_FinLC = clock();
 
     tps_DebutH = clock();
-    rechercher_par_titreH(biblioH, "DJEQV");
+    recherche_par_titreH(biblioH, "DJEQV");
     tps_FinH = clock();
 
     double tps_TotalLC_T = ((double)(tps_FinLC - tps_DebutLC)) / CLOCKS_PER_SEC;
@@ -92,11 +93,11 @@ int main(int argc, char* argv[]){
     printf("Calcul du temps d'exécution de la fonction recherche d'un ouvrage par son titre (cas absent) :\n");
 
     tps_DebutLC = clock();
-    rechercher_par_titre(biblioLC, "Splendides");
+    recherche_par_titre(biblioLC, "Splendides");
     tps_FinLC = clock();
 
     tps_DebutH = clock();
-    rechercher_par_titreH(biblioH, "Splendides");
+    recherche_par_titreH(biblioH, "Splendides");
     tps_FinH = clock();
 
     double tps_TotalLC_T1 = ((double)(tps_FinLC - tps_DebutLC)) / CLOCKS_PER_SEC;
@@ -110,11 +111,11 @@ int main(int argc, char* argv[]){
     printf("Calcul du temps d'exécution de la fonction recherche d'ouvrages par le nom d'auteur (cas existant) :\n");
 
     tps_DebutLC = clock();
-    Biblio* b1 = livres_par_auteur(biblioLC, "pslgvlcsa");
+    Biblio* b1 = recherche_livres_auteur(biblioLC, "pslgvlcsa");
     tps_FinLC = clock();
 
     tps_DebutH = clock();
-    BiblioH* b2 = livres_par_auteurH(biblioH, "pslgvlcsa");
+    BiblioH* b2 = recherche_livres_auteurH(biblioH, "pslgvlcsa");
     tps_FinH = clock();
 
     double tps_TotalLC_A = ((double)(tps_FinLC - tps_DebutLC)) / CLOCKS_PER_SEC;
@@ -127,11 +128,11 @@ int main(int argc, char* argv[]){
     printf("Calcul du temps d'exécution de la fonction recherche d'ouvrages par le nom d'auteur (cas absents):\n");
 
     tps_DebutLC = clock();
-    Biblio* b3 = livres_par_auteur(biblioLC, "Bronte");
+    Biblio* b3 = recherche_livres_auteur(biblioLC, "Bronte");
     tps_FinLC = clock();
 
     tps_DebutH = clock();
-    BiblioH* b4 = livres_par_auteurH(biblioH, "Bronte");
+    BiblioH* b4 = recherche_livres_auteurH(biblioH, "Bronte");
     tps_FinH = clock();
 
     double tps_TotalLC_A1 = ((double)(tps_FinLC - tps_DebutLC)) / CLOCKS_PER_SEC;
@@ -142,11 +143,11 @@ int main(int argc, char* argv[]){
 
     /* Libération de la mémoire des structures créées */
 
-    liberer_biblioLC(b1);
+    liberer_biblio(b1);
     liberer_biblioH(b2);
-    liberer_biblioLC(b3);
+    liberer_biblio(b3);
     liberer_biblioH(b4);
-    liberer_biblioLC(biblioLC);
+    liberer_biblio(biblioLC);
     liberer_biblioH(biblioH);
     return 0;
 }

@@ -55,19 +55,19 @@ BiblioH* creer_biblioH(int m){
   }
 
 void liberer_biblioH(BiblioH* b){
-  LivreH *tmp;
-  for(int i=0;i<b->m;i++){
-    //On parcour tous les têtes de liste chaîné de la table de hashage
-    tmp=b->T[i];
-    while (tmp) {
-      //On parcours tous les élément de chaque liste chaîné et on libère élément par élément
-      LivreH *suiv = tmp->suivant;
-      liberer_livreH(tmp);
-      tmp = suiv;
+    LivreH *tmp;
+    for(int i = 0; i < b->m; i++){
+        tmp = b->T[i];
+        while (tmp) {
+            LivreH *suiv = tmp->suivant;
+            liberer_livreH(tmp);
+            tmp = suiv;
+        }
     }
-  }
-  free(b);
-  }
+    free(b->T); // Libération de la mémoire allouée pour la table de hachage
+    free(b);    // Libération de la mémoire allouée pour la structure de la bibliothèque
+}
+
 
 int fonctionHachage(int clef, int m){
   //Nombre d'or moins 1
@@ -163,28 +163,24 @@ LivreH* recherche_par_titreH(BiblioH* b, char* titre){
 }
 
 BiblioH* recherche_livres_auteurH(BiblioH* b, char* auteur){
-  if (b != NULL) {
-    //creation d'une biblio
-    BiblioH* res=creer_biblioH(b->m);
-    LivreH* tmp;
-    //positionnement au début de la liste chaîné en fonction du nom de l'auteur
-    int h= fonctionHachage(fonctionClef(auteur),b->m);
-    tmp=b->T[h];
-    while(tmp){
-      //On parcours tous les élément de chaque liste chaîné et on compare élément par élément
-      if(strcmp(tmp->auteur,auteur)){
-        //Si le livre a le meme auteur recherche on l'ajoute a la biblio res
-        inserer(res,tmp->num,tmp->titre,tmp->auteur);
-      }
-      tmp=tmp->suivant;
+    if (b != NULL) {
+        BiblioH* res = creer_biblioH(b->m);
+        LivreH* tmp;
+        int h = fonctionHachage(fonctionClef(auteur), b->m);
+        tmp = b->T[h];
+        while(tmp){
+            if(strcmp(tmp->auteur, auteur) == 0){
+                inserer(res, tmp->num, tmp->titre, tmp->auteur);
+            }
+            tmp = tmp->suivant;
+        }
+        return res;
+    } else {
+        printf("Bibliothèque non trouvée ou invalide\n");
+        return NULL;
     }
-    return res;
-  }
-  else{
-    printf("Bibliothèque non trouvée ou invalide\n");
-    return NULL;
-  }
 }
+
 
 void supprimer_livreH(BiblioH* b, int num, char* titre, char* auteur){
   if (b != NULL) {
@@ -205,23 +201,39 @@ void supprimer_livreH(BiblioH* b, int num, char* titre, char* auteur){
 }
 
 BiblioH* fusion_biblioH(BiblioH* b1, BiblioH* b2){
-  if(b1!=NULL || b2!=NULL){
-    if(b1!=NULL){
-      LivreH* tmp;
-      for(int i=0;i<b2->m;i++){
-        tmp=b2->T[i];
-        while(tmp){
-          inserer(b1,tmp->num,tmp->titre,tmp->auteur);
+    if(b1 != NULL && b2 != NULL){
+        LivreH* tmp;
+        for(int i = 0; i < b2->m; i++){
+            tmp = b2->T[i];
+            while(tmp){
+                inserer(b1, tmp->num, tmp->titre, tmp->auteur);
+                tmp = tmp->suivant;
+            }
         }
-      }
-      return b1;
+        return b1;
+    } else {
+        printf("Bibliothèques non trouvées ou invalides\n");
+        return NULL;
     }
-    else{
-      return b2;
+}
+
+BiblioH* livres_exemplaires(BiblioH* b){
+    LivreH* tmp;
+    LivreH* test;
+    BiblioH* res = creer_biblio(b->m/2);
+    for(int i = 0;i<b->m;i++){
+        tmp = b->T[i];
+        
+        while(tmp){
+            test =b->T[i];
+            while(test && !(!strcmp(test->titre,tmp->titre)&&!strcmp(test->auteur,tmp->auteur)&&tmp->num!=test->num)){
+                test = test->suivant;
+            }
+            if (test){
+                inserer(res,tmp->num,tmp->titre,tmp->auteur);
+            }
+            tmp = tmp->suivant;
+        }
     }
-  }
-  else{
-    printf("Bibliothèques non trouvées ou invalides\n");
-    return NULL;
-  }
+    return res;
 }

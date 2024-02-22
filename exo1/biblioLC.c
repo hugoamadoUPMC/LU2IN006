@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 Livre *creer_livre(int num, char *titre, char *auteur) {
   // Allocation de mémoire pour le livre
@@ -113,74 +114,75 @@ Livre* recherche_par_titre(Biblio* b, char* titre){
 }
 
 Biblio* recherche_livres_auteur(Biblio* b, char* auteur){
-  if (b != NULL) {
-    Biblio* res=creer_biblio();
-    Livre* tmp = b->L;
-    while(tmp){
-      if(strcmp(tmp->auteur,auteur)){
-        inserer_en_tete(b,tmp->num,tmp->titre,tmp->auteur);
-      }
-      tmp=tmp->suiv;
+    if (b != NULL) {
+        Biblio* res = creer_biblio();
+        Livre* tmp = b->L;
+        while(tmp){
+            if(strcmp(tmp->auteur,auteur) == 0){
+                inserer_en_tete(res, tmp->num, tmp->titre, tmp->auteur);
+            }
+            tmp = tmp->suiv;
+        }
+        return res;
     }
-    return b;
-  }
-  else{
-    printf("Bibliothèque non trouvée ou invalide\n");
-    return NULL;
-  }
+    else{
+        printf("Bibliothèque non trouvée ou invalide\n");
+        return NULL;
+    }
 }
 
 void supprimer_livre(Biblio* b, int num, char* titre, char* auteur){
-  if (b != NULL) {
-    Livre* tmp = b->L;
-    while(tmp && num!=tmp->num && !strcmp(tmp->auteur,auteur) && !strcmp(tmp->titre,titre)){
-      tmp=tmp->suiv;
-      }
-    if(tmp!=NULL){
-      liberer_livre(tmp);
+    if (b != NULL) {
+        Livre* prec = NULL;
+        Livre* cour = b->L;
+        while(cour && (cour->num != num || strcmp(cour->auteur,auteur) || strcmp(cour->titre,titre))){
+            prec = cour;
+            cour = cour->suiv;
+        }
+        if(cour != NULL){
+            if(prec == NULL){
+                b->L = cour->suiv;
+            } else {
+                prec->suiv = cour->suiv;
+            }
+            liberer_livre(cour);
+        }
     }
-  }
-  else{
-    printf("Bibliothèque non trouvée ou invalide\n");
-    return;
-  }
+    else{
+        printf("Bibliothèque non trouvée ou invalide\n");
+        return;
+    }
 }
 
 Biblio* fusion_biblio(Biblio* b1, Biblio* b2){
-  if(b1!=NULL || b2!=NULL){
-    if(b1!=NULL){
-      Livre* tmp=b2->L;
-      while(tmp){
-        inserer_en_tete(b1,tmp->num,tmp->titre,tmp->auteur);
-      }
-      return b1;
+    if(b1 != NULL && b2 != NULL){
+        Livre* tmp = b2->L;
+        while(tmp){
+            inserer_en_tete(b1, tmp->num, tmp->titre, tmp->auteur);
+            tmp = tmp->suiv;
+        }
+        return b1;
     }
     else{
-      return b2;
+        printf("Bibliothèques non trouvées ou invalides\n");
+        return NULL;
     }
-  }
-  else{
-    printf("Bibliothèques non trouvées ou invalides\n");
-    return NULL;
-  }
 }
+
 
 Biblio* livres_exemplaires(Biblio* b){
-    Biblio* t = creer_biblio();
-    Livre* cour = b->L;
-    
-    while (cour != NULL) {
-        Livre* liv = cour->suiv;
-        while (liv != NULL) {
-            if (strcmp(cour->titre, liv->titre) == 0 && strcmp(cour->auteur, liv->auteur) == 0) {
-                // Les ouvrages sont identiques
-                // On insère l'exemplaire dans la bibliothèque de résultats
-                inserer_en_tete(t, liv->num, liv->titre, liv->auteur); 
-            }
-            liv = liv->suiv;
+    Livre *tmp = b->L;
+    Livre* test = b->L;
+    Biblio* res = creer_biblio();
+    while(tmp){
+        test = b->L;
+        while(test && !(!strcmp(test->titre,tmp->titre)&&!strcmp(test->auteur,tmp->auteur)&&tmp->num!=test->num)){
+            test = test->suiv;
         }
-        cour = cour->suiv;
+        if (test){
+            inserer_en_tete(res,tmp->num,tmp->titre,tmp->auteur);
+        }
+        tmp=tmp->suiv;
     }
-    return t;
+    return res;
 }
-
